@@ -28,8 +28,8 @@ For more information about API credentials see [here](https://dev.bandwidth.com/
 The sample app uses the below environmental variables.
 ```java
 BANDWIDTH_ACCOUNT_ID                 // Your Bandwidth Account Id
-BANDWIDTH_USERNAME                   // Your Bandwidth API Token
-BANDWIDTH_PASSWORD                   // Your Bandwidth API Secret
+BANDWIDTH_USERNAME                   // Your Bandwidth API Username
+BANDWIDTH_PASSWORD                   // Your Bandwidth API Password
 BANDWIDTH_PHONE_NUMBER               // Your Bandwidth Phone Number
 BANDWIDTH_VOICE_APPLICATION_ID       // Your Voice Application Id created in the dashboard
 MASKED_PHONE_NUMBER                  // The private phone number to receive the masked call
