@@ -10,21 +10,21 @@ import sys
 import json
 
 try:
-    BANDWIDTH_USERNAME = os.environ['BANDWIDTH_USERNAME']
-    BANDWIDTH_PASSWORD = os.environ['BANDWIDTH_PASSWORD']
-    BANDWIDTH_ACCOUNT_ID = os.environ['BANDWIDTH_ACCOUNT_ID']
-    BANDWIDTH_VOICE_APPLICATION_ID = os.environ['BANDWIDTH_VOICE_APPLICATION_ID']
-    BANDWIDTH_PHONE_NUMBER = os.environ['BANDWIDTH_PHONE_NUMBER']
-    MASKED_PHONE_NUMBER = os.environ['MASKED_PHONE_NUMBER']
-    PORT = os.environ['PORT']
-    BASE_URL = os.environ['BASE_URL']
+    BW_USERNAME = os.environ['BW_USERNAME']
+    BW_PASSWORD = os.environ['BW_PASSWORD']
+    BW_ACCOUNT_ID = os.environ['BW_ACCOUNT_ID']
+    BW_VOICE_APPLICATION_ID = os.environ['BW_VOICE_APPLICATION_ID']
+    BW_NUMBER = os.environ['BW_NUMBER']
+    USER_NUMBER = os.environ['USER_NUMBER']
+    LOCAL_PORT = os.environ['LOCAL_PORT']
+    BASE_CALLBACK_URL = os.environ['BASE_CALLBACK_URL']
 except:
     print("Please set the environmental variables defined in the README")
     sys.exit(1)
 
 bandwidth_client = BandwidthClient(
-    voice_basic_auth_user_name=BANDWIDTH_USERNAME,
-    voice_basic_auth_password=BANDWIDTH_PASSWORD
+    voice_basic_auth_user_name=BW_USERNAME,
+    voice_basic_auth_password=BW_PASSWORD
 )
 
 voice_client = bandwidth_client.voice_client.client
@@ -36,13 +36,13 @@ def inbound_call():
     callback_data = json.loads(request.data)
 
     body = ApiCreateCallRequest()
-    body.mfrom = BANDWIDTH_PHONE_NUMBER
-    body.to = MASKED_PHONE_NUMBER 
-    body.answer_url = BASE_URL + '/callbacks/outboundCall' 
-    body.application_id = BANDWIDTH_VOICE_APPLICATION_ID
+    body.mfrom = BW_NUMBER
+    body.to = USER_NUMBER 
+    body.answer_url = BASE_CALLBACK_URL + '/callbacks/outboundCall' 
+    body.application_id = BW_VOICE_APPLICATION_ID
     body.tag = callback_data['callId']
 
-    voice_client.create_call(BANDWIDTH_ACCOUNT_ID, body=body)
+    voice_client.create_call(BW_ACCOUNT_ID, body=body)
 
     response = Response()
     speak_sentence = SpeakSentence(
@@ -73,4 +73,4 @@ def outbound_call():
     return response.to_bxml()
 
 if __name__ == '__main__':
-    app.run(port=PORT)
+    app.run(port=LOCAL_PORT)
