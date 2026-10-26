@@ -1,4 +1,4 @@
-# Voice Gather
+# Voice Bridge
 
 <a href="https://dev.bandwidth.com/docs/voice/quickStart">
   <img src="./icon-voice.svg" title="Voice Quick Start Guide" alt="Voice Quick Start Guide"/>
